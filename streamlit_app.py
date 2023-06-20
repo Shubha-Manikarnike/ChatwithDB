@@ -41,11 +41,11 @@ def get_prompt(prompt):
 def generate_response(txt):
     # Instantiate the LLM model
     llm = OpenAI(temperature=0, openai_api_key=os.environ['OPENAI_API_KEY'])
-    db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
+    #db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
     # Split text
-    get_prompt()
-    return get_prompt(txt)
-    #return "Hello World"
+    #get_prompt()
+    #return get_prompt(txt)
+    return "Hello World"
 
 # Page title
 st.set_page_config(page_title='🦜🔗 Chat with your DB')
