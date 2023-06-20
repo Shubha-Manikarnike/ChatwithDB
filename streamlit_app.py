@@ -30,9 +30,9 @@ Answer: Final answer here
 """
 
 # Setup the database chain
-def generate_response(txt):
+def generate_response(txt,openai_api_key):
     # Instantiate the LLM model
-    llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+    llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
     #db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
     ques=QUERY.format(question=txt)
     db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
@@ -43,6 +43,7 @@ def generate_response(txt):
 st.set_page_config(page_title='🔗 Chat with your DB')
 st.title('🔗 Chat with your DB')
 # Text input
+openai_api_key = st.text_input('OpenAI API Key', type='password')
 txt_input = st.text_area('Enter your text', '', height=200)
 # Form to accept user's text input for summarization
 result = []
@@ -51,7 +52,7 @@ with st.form('chatwithDB_form', clear_on_submit=True):
     submitted = st.form_submit_button('Submit')
     if submitted:
         with st.spinner('Calculating...'):
-            response = generate_response(txt_input)
+            response = generate_response(txt_input,openai_api_key)
             result.append(response)
 if len(result):
     st.info(response)    
