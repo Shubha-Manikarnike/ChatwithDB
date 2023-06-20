@@ -5,6 +5,10 @@ from langchain.sql_database import SQLDatabase
 from langchain.chat_models import ChatOpenAI
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv() 
+OPENAI_API_KEY=os.getenv('OPENAI_API_KEY')
 
 db_user = "postgres"
 db_password = "Pass1234"
@@ -28,7 +32,7 @@ Answer: Final answer here
 # Setup the database chain
 def generate_response(txt):
     # Instantiate the LLM model
-    llm = OpenAI(temperature=0, openai_api_key=os.environ['OPENAI_API_KEY'])
+    llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
     #db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
     ques=QUERY.format(question=txt)
     db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
