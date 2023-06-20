@@ -3,3 +3,4 @@ langchain
 openai
 tiktoken
 psycopg2-binary
+python-dotenv
